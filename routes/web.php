@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register'=> false]);
 
 
-Route::middleware('auth')->prefix('admin')->group(function(){
-    Route::get('/', 'Admin\HomeController@index')->name('admin.home');
+Route::middleware('auth')->prefix('admin')->name('admin.')->namespace('Admin')->group(function(){
+    Route::get('/', 'HomeController@index')->name('admin.home');
     
     // Resource POST
     Route::resource('posts','PostController');
+
     Route::get('{any}',function(){
         abort('404');
     })->where('any','.*');

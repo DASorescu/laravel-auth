@@ -37302,6 +37302,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./image-preview */ "./resources/js/image-preview.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37346,6 +37348,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/image-preview.js":
+/*!***************************************!*\
+  !*** ./resources/js/image-preview.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var placeholder = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4KK-Q2mcxD1oB5e3SPK-Sa0_eqpXkUaFe7t2gEuvYqA&s';
+var preview = document.getElementById('preview');
+var imageField = document.getElementById('image-field');
+imageField.addEventListener('input', function () {
+  preview.src = imageField.value || placeholder;
+});
 
 /***/ }),
 

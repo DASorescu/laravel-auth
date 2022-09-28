@@ -9,15 +9,18 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- fontawesome --}}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css' integrity='sha512-HHsOC+h3najWR7OKiGZtfhFIEzg5VRIPde0kB0bG2QRidTQqf+sbfcxCTB16AcFB93xMjnBIKE29/MjdzXE+qw==' crossorigin='anonymous'/>
+    
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
     <div id="app">
@@ -33,7 +36,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" @if(Route::is('admin.posts.index')) @endif href="{{ route('admin.posts.index') }}">Posts</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,7 +77,8 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container">
+            @include('includes.admin.alert')
             @yield('content')
         </main>
     </div>
