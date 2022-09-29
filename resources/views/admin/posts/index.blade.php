@@ -26,16 +26,14 @@
             <td>{{$post->title}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
-            <td>
-                <a href="{{route('admin.posts.show', $post)}}" class="btn btn-sm btn-info"><i class="fa-solid fa-eye">Vedi</i></a>
+            <td><a href="{{route('admin.posts.show', $post)}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a></td>
+            <td><a href="{{route('admin.posts.edit',$post)}}" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a></td>
                 
-            </td>
-            <td><a href="{{route('admin.posts.edit',$post)}}" class="btn btn-warning"><i class="fa-solid fa-pencil"></i>Modifica</a></td>
             <td>            
               <form action="{{route('admin.posts.destroy', $post)}}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i>Elimina</i></button>
+                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
               </form>
             </td>
           </tr>

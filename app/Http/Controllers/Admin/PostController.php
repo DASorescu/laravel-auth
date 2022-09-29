@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -28,7 +29,8 @@ class PostController extends Controller
     public function create(Post $posts)
     {
         $post = new Post();
-        return view('admin.posts.create',compact('post'));
+        $categories = Category::select('id','label')->get();
+        return view('admin.posts.create',compact('post','categories'));
     }
 
     /**
@@ -39,6 +41,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title'=>'required|string|min:3|max:50|unique:posts',
+            'content'=>'required|string',
+            'image'=>'nullable|url',
+            'category_id'=>'nullable|exists:categories,id',
+        ],[
+            'title.required'=> 'Il titolo e obbligatorio',
+            'content.required'=>'Il post deve avere contenuto non vuoto',
+            'title.min'=>'Il titolo deve avere un numero minimo di 3 caratteri',
+            'title.max'=>'Il titolo deve avere un numero massimo di 50 caratteri',
+            'title.unique'=>"Esiste gia' un post con il titolo $request->title ",
+            'image.url'=>'Inserisci un url valido',
+            'category_id.exists'=>'Non esiste una categoria associabile al post',
+        ]);
+
         $data=$request->all();
 
         $post = new Post;
@@ -72,7 +90,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit',compact('post'));
+        $categories = Category::select('id','label')->get();
+        return view('admin.posts.edit',compact('post','categories'));
     }
 
     /**
@@ -84,6 +103,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title'=>['required' , 'string' , 'min:3' , 'max:50', Rule::unique('posts')->ignore($post->id)],
+            'content'=>'required|string',
+            'image'=>'nullable|url',
+            'category_id'=>'nullable|exists:categories,id',
+        ],[
+            'title.required'=> "Il titolo e' obbligatorio",
+            'content.required'=>'Il post deve avere contenuto non vuoto',
+            'title.min'=>'Il titolo deve avere un numero minimo di 3 caratteri',
+            'title.max'=>'Il titolo deve avere un numero massimo di 50 caratteri',
+            'title.unique'=>"Esiste gia' un post con il titolo $request->title ",
+            'image.url'=>'Inserisci un url valido',
+            'category_id.exists'=>'Non esiste una categoria associabile al post',
+        ]);
+
         $data=$request->all();
 
         $data['slug'] = Str::slug($request->title,'-');
