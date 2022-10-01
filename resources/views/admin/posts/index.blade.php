@@ -9,8 +9,8 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">SLUG</th>
             <th scope="col">TITOLO</th>
+            <th scope="col">SLUG</th>
             <th scope="col">CREATO IL:</th>
             <th scope="col">MODIFICATO IL:</th>
             <th colspan="6">
@@ -22,8 +22,8 @@
             @forelse($posts as $post)
           <tr>
             <th scope="row">{{$post->id}}</th>
-            <td>{{$post->slug}}</td>
             <td>{{$post->title}}</td>
+            <td>{{$post->slug}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
             <td><a href="{{route('admin.posts.show', $post)}}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a></td>

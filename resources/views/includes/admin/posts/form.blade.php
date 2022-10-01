@@ -19,7 +19,7 @@
         <div class="col-8">
             <div class="form-group">
                 <label for="title">Titolo</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{old('title',$post->title)}}" require minlength="3" maxlength="50" >
+                <input type="text" class="form-control" id="title" name="title" value="{{old('title',$post->title)}}"  >
               </div>
         </div>
         <div class="col-4">
@@ -40,10 +40,23 @@
         <div class="col-12">
             <div class="form-group">
                 <label for="content">Descrizione</label>
-                <textarea  class="form-control" id="content" name="content" required>{{old('content',$post->content)}}</textarea>
+                <textarea  class="form-control" id="content" name="content" >{{old('content',$post->content)}}</textarea>
             </div>
         </div>
-        <div class="col-11">
+        @if(count($tags))
+        <div class="col-12 ">
+            <fieldset >
+                <legend>Tags</legend>
+                @foreach($tags as $tag)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="tag-{{$tag->label}}" name="tags[]" value="{{$tag->id}}" @if(in_array($tag->id ,old('tags',$prev_tags ?? []))) checked @endif>
+                    <label class="form-check-label" for="tag-{{$tag->label}}">{{$tag->label}}</label>
+                  </div>
+                @endforeach
+            </fieldset>
+        </div>
+        @endif
+        <div class="col-11 my-3">
             <div class="form-group">
                 <label for="image">Immagine</label>
                 <input type="url" class="form-control" id="image-field" name="image" value="{{old('image', $post->image)}}">
