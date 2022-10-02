@@ -5,10 +5,10 @@
 <form action="{{route('admin.posts.store')}}" method="POST">
 @endif
 @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-{{$error->type}}">
         <ul>
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <li>{{ $error->message}}</li>
             @endforeach
         </ul>
     </div>

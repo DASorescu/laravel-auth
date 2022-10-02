@@ -91,7 +91,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-
+        
         return view('admin.posts.show',compact('post'));
     }
 
@@ -161,6 +161,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // verifico se ci sono relazioni e le elimino (cio' che fa cascade ma si ripete per sicurezza )
+        if(count($post->$tags)) $post->tags->detach();
+
         $post->delete();
         return redirect()->route('admin.posts.index')
             ->with('message','Post eliminato con successo')

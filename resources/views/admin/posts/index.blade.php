@@ -10,6 +10,7 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">TITOLO</th>
+            <th scope="col">TAGS</th>
             <th scope="col">SLUG</th>
             <th scope="col">CREATO IL:</th>
             <th scope="col">MODIFICATO IL:</th>
@@ -23,6 +24,13 @@
           <tr>
             <th scope="row">{{$post->id}}</th>
             <td>{{$post->title}}</td>
+            <td>
+              @forelse($post->tags as $tag)
+              <span class="badge badge-pill mx-2" style="background-color:{{$tag->color}}">{{$tag->label}}</span>
+              @empty
+                  Nessun tag 
+              @endforelse
+            </td>
             <td>{{$post->slug}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>

@@ -7,8 +7,19 @@
         <img class="float-left mr-3" src="{{$post->image}}" alt="{{$post->slug}}">
         @endif
         <p>{{$post->content}}</p>
-        <time> <strong>Creato il:</strong>{{$post->created_at}}</time><br>
-        <time> <strong>Ultima modifica:</strong>{{$post->updated_at}}</time>
+        <div class="mb-2">
+            <h5>Tags</h5>
+            <div>
+                @forelse($post->tags as $tag)
+                <span class="badge badge-pill mx-2" style="background-color:{{$tag->color}}">{{$tag->label}}</span>
+                @empty
+                    Nessun tag 
+                @endforelse
+
+            </div>
+        </div>
+        <time class="mx-2"> <strong>Creato il:</strong>{{$post->created_at}}</time>
+        <time class="mx-2"> <strong>Ultima modifica:</strong>{{$post->updated_at}}</time>
     </div>
 
     <hr>
